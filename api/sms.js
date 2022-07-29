@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 const bodyParser = require('body-parser');
 const client = require('twilio')(accountSid, authToken);
 
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
 
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
