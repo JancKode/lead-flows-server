@@ -1,20 +1,16 @@
 const express = require('express');
-require('dotenv').config();
-const cors = require('cors')
-const bodyParser = require('body-parser');
 const router = express.Router();
+require('dotenv').config();
+
+const bodyParser = require('body-parser');
+const client = require('twilio')(accountSid, authToken);
 
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
-router.use(cors({
-  origin: '*'
-}));
 router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
-
-const client = require('twilio')(accountSid, authToken);
 
 router.post('/', async (req, res) => {
   const { phoneNumbers, message } = req.body;
