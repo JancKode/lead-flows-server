@@ -1,0 +1,30 @@
+{
+  "name": "lead-flows-server",
+  "version": "1.0.0",
+  "description": "lead flows server",
+  "main": "index.js",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JancKode/lead-flows-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JancKode/lead-flows-server/issues"
+  },
+  "homepage": "https://github.com/JancKode/lead-flows-server#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "twilio": "^3.80.0"
+  }
+}
