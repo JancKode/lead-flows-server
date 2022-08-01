@@ -14,7 +14,7 @@ router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/', async (req, res) => {
   const { phoneNumbers, message } = req.body;
-
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const allMessageRequests = await phoneNumbers.map((to) => {
     return client.messages
       .create({

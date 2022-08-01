@@ -10,6 +10,7 @@ router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/', async (req, res) => {
   console.log('envKey', envKey);
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const { amount, env, paymentMethodType, currency } = req.body;
 
   try {
