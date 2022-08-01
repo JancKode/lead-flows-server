@@ -26,12 +26,12 @@ router.post('/', async (req, res) => {
 
         // return { success: true, sid: msg.sid };
         // Return a success response using the callback function
-        return res.send(msg);
+        return res.status(200).send(msg);
       })
       .catch((err) => {
 
         // return { success: false, error: err.message };
-        return res.send(err);
+        return res.status(400).send(err.message);
       });
   });
 
