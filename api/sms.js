@@ -63,8 +63,8 @@ router.post('/', async (req, res) => {
         .catch((err) => {
 
           // return { success: false, error: err.message };
-          res.sendStatus(400).send(err.message);
-          return res.status(400).send(err.message);
+          res.sendStatus(400).send(err);
+          return res.status(400).send(err);
         });
     });
 
