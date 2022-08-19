@@ -13,29 +13,57 @@ router.use(bodyParser.json())
 router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/', async (req, res) => {
-  const { phoneNumbers, message } = req.body;
+  const { phoneNumbers, message, isScheduled } = req.body;
   res.setHeader('Access-Control-Allow-Origin', '*');
-  const allMessageRequests = await phoneNumbers.map((to) => {
-    return client.messages
-      .create({
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to,
-        body: message,
-      })
-      .then((msg) => {
+  if (!isScheduled) {
 
-        // return { success: true, sid: msg.sid };
-        // Return a success response using the callback function
-        return res.status(200).send(msg);
-      })
-      .catch((err) => {
+    const allMessageRequests = await phoneNumbers.map((to) => {
+      return client.messages
+        .create({
+          from: process.env.TWILIO_PHONE_NUMBER,
+          to,
+          body: message,
+        })
+        .then((msg) => {
 
-        // return { success: false, error: err.message };
-        return res.status(400).send(err.message);
-      });
-  });
+          // return { success: true, sid: msg.sid };
+          // Return a success response using the callback function
+          return res.status(200).send(msg);
+        })
+        .catch((err) => {
 
-  return allMessageRequests;
+          // return { success: false, error: err.message };
+          return res.status(400).send(err.message);
+        });
+    });
+
+    return allMessageRequests;
+  } else {
+    const scheduledMessageRequest = await phoneNumbers.map((to) => {
+      return client.messages
+        .create({
+          messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
+          sendAt: new Date((isScheduled)),
+          scheduleType: 'fixed',
+          from: process.env.TWILIO_PHONE_NUMBER,
+          to,
+          body: message
+        })
+        .then((msg) => {
+
+          // return { success: true, sid: msg.sid };
+          // Return a success response using the callback function
+          return res.status(200).send(msg);
+        })
+        .catch((err) => {
+
+          // return { success: false, error: err.message };
+          return res.status(400).send(err.message);
+        });
+    });
+
+    return scheduledMessageRequest;
+  }
 });
 
 module.exports = router;
