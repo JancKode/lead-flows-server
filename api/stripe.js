@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
+const cors = require('cors');
 const envKey = process.env.NODE_ENV === 'production' ? process.env.STRIPE_SECRET_LIVE_KEY : process.env.STRIPE_SECRET_TEST_KEY;
 const stripe = require('stripe')(envKey);
 const bodyParser = require('body-parser');
@@ -11,6 +12,8 @@ router.use(bodyParser.urlencoded({ extended: false }))
 router.post('/', async (req, res) => {
   console.log('envKey', envKey);
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
   const { amount, env, paymentMethodType, currency } = req.body;
 
   try {
@@ -28,5 +31,7 @@ router.post('/', async (req, res) => {
     return err;
   }
 })
+
+router.use(cors())
 
 module.exports = router;
