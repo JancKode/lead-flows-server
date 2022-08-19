@@ -9,7 +9,6 @@ app.use(cors());
 
 const PORT = process.env.PORT || 9000;
 
-
 app.use("/api/sms", smsService);
 app.use("/api/create-payment-intent", stripeService);
 
