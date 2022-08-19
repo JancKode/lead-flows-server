@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
 
   if (!isScheduled) {
 
-    const allMessageRequests = await [phoneNumbers].map((to) => {
+    const allMessageRequests = await phoneNumbers.map((to) => {
       return client.messages
         .create({
           from: process.env.TWILIO_PHONE_NUMBER,
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 
     return allMessageRequests;
   } else {
-    const scheduledMessageRequest = await [phoneNumbers].map((to) => {
+    const scheduledMessageRequest = await phoneNumbers.map((to) => {
       return client.messages
         .create({
           messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
