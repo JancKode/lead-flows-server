@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
+const cors = require('cors');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 
@@ -15,8 +16,8 @@ router.use(bodyParser.urlencoded({ extended: false }))
 router.post('/', async (req, res) => {
   const { phoneNumbers, message, isScheduled } = req.body;
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', '*')
-  res.setHeader('Access-Control-Allow-Headers', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
 
   if (!isScheduled) {
 
@@ -68,5 +69,7 @@ router.post('/', async (req, res) => {
     return scheduledMessageRequest;
   }
 });
+
+router.use(cors())
 
 module.exports = router;
