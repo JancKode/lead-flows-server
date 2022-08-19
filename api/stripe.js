@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     res.status(200).json({ clientSecret: paymentIntent.client_secret });
 
   } catch (err) {
-    console.log('Error on stripe', err)
+
     res.status(400).json({ error: err.message });
     return err;
   }
