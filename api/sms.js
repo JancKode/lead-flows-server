@@ -15,6 +15,9 @@ router.use(bodyParser.urlencoded({ extended: false }))
 router.post('/', async (req, res) => {
   const { phoneNumbers, message, isScheduled } = req.body;
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+
   if (!isScheduled) {
 
     const allMessageRequests = await phoneNumbers.map((to) => {
