@@ -11,7 +11,7 @@ const client = require('twilio')(accountSid, authToken);
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.post('/api/sms', (req, res) => {
+app.post('/api/sms', async (req, res) => {
   const { phoneNumbers, message, isScheduled } = req.body;
   console.log('phoneNumbers', phoneNumbers)
   const path = `/api/item/${v4()}`;
