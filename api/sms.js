@@ -13,13 +13,14 @@ router.use(bodyParser.urlencoded({ extended: false }))
 
 router.post('/', async (req, res) => {
   const { phoneNumbers, message, isScheduled } = req.body;
+  const recipients = phoneNumbers.split(',').map((x) => x.trim())
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', '*');
   res.setHeader('Access-Control-Allow-Headers', '*');
 
   if (!isScheduled) {
 
-    const allMessageRequests = await [phoneNumbers].map((to) => {
+    const allMessageRequests = await phoneNumbers.map((to) => {
       return client.messages
         .create({
           from: process.env.TWILIO_PHONE_NUMBER,
@@ -43,7 +44,7 @@ router.post('/', async (req, res) => {
 
     return allMessageRequests;
   } else {
-    const scheduledMessageRequest = await [phoneNumbers].map((to) => {
+    const scheduledMessageRequest = await phoneNumbers.map((to) => {
       return client.messages
         .create({
           messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
