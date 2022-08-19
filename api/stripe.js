@@ -23,10 +23,11 @@ router.post('/', async (req, res) => {
       payment_method_types: [paymentMethodType] || ['card'],
     });
 
+    res.sendStatus(200).json({ clientSecret: paymentIntent.client_secret });
     res.status(200).json({ clientSecret: paymentIntent.client_secret });
 
   } catch (err) {
-
+    res.sendStatus(200).json({ error: err.message });
     res.status(400).json({ error: err.message });
     return err;
   }

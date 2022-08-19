@@ -55,11 +55,13 @@ router.post('/', async (req, res) => {
 
           // return { success: true, sid: msg.sid };
           // Return a success response using the callback function
+          res.sendStatus(200).send(msg);
           return res.status(200).send(msg);
         })
         .catch((err) => {
 
           // return { success: false, error: err.message };
+          res.sendStatus(400).send(err.message);
           return res.status(400).send(err.message);
         });
     });
