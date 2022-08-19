@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 
           // return { success: false, error: err.message };
           res.sendStatus(400)
-          return res.status(400).send(err.message);
+          return res.status(400).send(err);
         });
     });
 
